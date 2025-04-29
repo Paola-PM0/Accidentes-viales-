@@ -31,7 +31,11 @@ app.use('/geoserver', createProxyMiddleware({
 //ruteo de documentos estaticos
 app.get("/", ((req, res) => {
     //metodo del path para concatenar la ruta raiz del proyecto con la carpeta public
-    res.sendFile(path.join(__dirname, 'public', 'index.html'));
+    res.sendFile(path.join(__dirname, 'index.html'));
+
+    //ANTES tenia el index.html dentro de la carpeta publicn entonces la ruta se modifica a 
+
+    //res.sendFile(path.join(__dirname,'public', 'index.html'));
 }))
 
 app.listen(3000, () => {
