@@ -11,8 +11,11 @@ function initMap() {
         attribution: '© OpenStreetMap contributors'
     }).addTo(map);
 
+    
+
+
     //capa de wms traida desde geoserver 
-    wmsLayer = L.tileLayer.wms("http://localhost:8080/geoserver/Accidentes/wms", {
+    wmsLayer = L.tileLayer.wms("http://44.204.60.238:8080/geoserver/ne/wms", {
         layers: 'Accidentes:Accidentes_2018_2024',
         format: 'image/png',
         transparent: true,
@@ -21,6 +24,7 @@ function initMap() {
         attribution: 'GeoServer WMS'
     }).addTo(map);
 
+    //http://localhost:8080/geoserver/Accidentes/wms url local
 
     // para filtar con CQL
     document.getElementById('tipoAccidente').addEventListener('change', (event) => {
