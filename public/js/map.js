@@ -15,7 +15,7 @@ function initMap() {
 
 
     //capa de wms traida desde geoserver 
-    wmsLayer = L.tileLayer.wms("https://geoaccidentes.duckdns.org/geoserver/web/?2", {
+    wmsLayer = L.tileLayer.wms("http://geoaccidentes.duckdns.org:8080/geoserver/ne/wms", {
         layers: 'Accidentes:Accidentes_2018_2024',
         format: 'image/png',
         transparent: true,
