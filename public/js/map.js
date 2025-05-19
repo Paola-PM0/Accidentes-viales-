@@ -16,7 +16,7 @@ function initMap() {
 
     //capa de wms traida desde geoserver 
     wmsLayer = L.tileLayer.wms("https://geoaccidentes.duckdns.org/geoserver/ne/wms", {
-        layers: 'Accidentes:Accidentes_2018_2024',
+        layers: 'ne:Accidentes_2018_2024',
         format: 'image/png',
         transparent: true,
         /*CQL_FILTER: "circunstan =  'no guardo distancia'",*/
@@ -41,7 +41,7 @@ function initMap() {
             cqlFilter = `circunstan = '${tipoSelecionado}'`;     
         }
         wmsLayer = L.tileLayer.wms('https://geoaccidentes.duckdns.org/geoserver/ne/wms', {
-            layers: 'Accidentes:Accidentes_2018_2024',
+            layers: 'ne:Accidentes_2018_2024',
             format: 'image/png',
             transparent: true,
             CQL_FILTER: cqlFilter,
