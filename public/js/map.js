@@ -40,7 +40,7 @@ function initMap() {
         if(tipoSelecionado !== "Todos"){
             cqlFilter = `circunstan = '${tipoSelecionado}'`;     
         }
-        wmsLayer = L.tileLayer.wms('http://localhost:8080/geoserver/Accidentes/wms', {
+        wmsLayer = L.tileLayer.wms('https://geoaccidentes.duckdns.org/geoserver/ne/wms', {
             layers: 'Accidentes:Accidentes_2018_2024',
             format: 'image/png',
             transparent: true,
