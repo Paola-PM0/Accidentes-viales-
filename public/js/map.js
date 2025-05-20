@@ -123,7 +123,9 @@ function initMap() {
 
 //Asinconrna para que el codigo se espere xd
 async function actualizarGrafica(tipoSelecionado) {
-    const url = `http://localhost:8080/geoserver/Accidentes/ows?service=WFS&version=1.0.0&request=GetFeature&typeName=Accidentes:Accidentes_2018_2024&outputFormat=application/json`;
+
+    //antes en local:  http://localhost:8080/geoserver/Accidentes/ows?service=WFS&version=1.0.0&request=GetFeature&typeName=Accidentes:Accidentes_2018_2024&outputFormat=application/json
+    const url = `http://geoaccidentes.duckdns.org:8080/geoserver/ne/ows?service=WFS&version=1.0.0&request=GetFeature&typeName=ne%3AAccidentes_2018_2024&maxFeatures=50&outputFormat=application%2Fjson`;
 
     try {
         const response = await fetch(url); //se envia la solicitud o sea la peticion  y la guardo para despues convertira a JSON 
