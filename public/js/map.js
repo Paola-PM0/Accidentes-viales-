@@ -49,7 +49,7 @@ function initMap() {
             attribution: 'GeoServer WMS'
         }).addTo(map);
         /*cargarWFS(cqlFilter);*/
-        /*actualizarGrafica(tipoSelecionado);*/
+        actualizarGrafica(tipoSelecionado);
     });
 
 
