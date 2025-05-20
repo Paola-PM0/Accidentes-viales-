@@ -38,7 +38,7 @@ function initMap() {
         let cqlFilter = "";
         
         if(tipoSelecionado !== "Todos"){
-            cqlFilter = `circunstan = '${tipoSelecionado}'`;     
+            cqlFilter = `circunstancias = '${tipoSelecionado}'`;     
         }
         wmsLayer = L.tileLayer.wms('https://geoaccidentes.duckdns.org/geoserver/ne/wms', {
             layers: 'ne:Accidentes_2018_2024',
@@ -68,7 +68,7 @@ function initMap() {
                 const props = data.features[0].properties;
         
                 
-                const circunstancia = props.circunstan || "Sin circunstancia";
+                const circunstancia = props.circunstancias || "Sin circunstancia";
                 const hora = props.hora || "Sin hora";
                 const domicilio = props.domicilio || "Sin domicilio";
                 const contenido = `<strong>Hora:</strong> ${hora}<br><strong>Situación:</strong> ${circunstancia}<br><strong>Domicilio:</strong> ${domicilio}`;
@@ -133,7 +133,7 @@ async function actualizarGrafica(tipoSelecionado) {
         const cuentaTipos = {}; //arrego para contar los accidentes por tipo 
 
         data.features.forEach(feature => {
-            const tipo = feature.properties.circunstan || "Desconocido";
+            const tipo = feature.properties.circunstancias || "Desconocido";
             cuentaTipos[tipo] = (cuentaTipos[tipo] || 0) + 1;
         });
 
