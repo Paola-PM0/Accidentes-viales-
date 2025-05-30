@@ -121,15 +121,16 @@ async function actualizarGrafica(tipoSelecionado) {
     //antes en local:  http://localhost:8080/geoserver/Accidentes/ows?service=WFS&version=1.0.0&request=GetFeature&typeName=Accidentes:Accidentes_2018_2024&outputFormat=application/json
     const url = `https://geoaccidentes.duckdns.org/geoserver/ne/ows?service=WFS&version=1.0.0&request=GetFeature&typeName=ne%3AAccidentes_2018_2024&maxFeatures=50&outputFormat=application%2Fjson`;
     
-
+                
     try {
         const response = await fetch(url); //se envia la solicitud o sea la peticion  y la guardo para despues convertira a JSON 
         const data = await response.json();  //en data guardo todo el JSON que se obtiene de la peticion, son await porque el codigo no avanzar 
         //hasta que se recibio la peticion 
-
+        console.log("datos:",data);
         const cuentaTipos = {}; //arrego para contar los accidentes por tipo 
 
         data.features.forEach(feature => {
+            console.log("fecture",feature);
             const tipo = feature.properties.circunstancias || "Desconocido";
             cuentaTipos[tipo] = (cuentaTipos[tipo] || 0) + 1;
         });
