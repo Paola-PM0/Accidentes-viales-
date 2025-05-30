@@ -11,9 +11,6 @@ function initMap() {
         attribution: '© OpenStreetMap contributors'
     }).addTo(map);
 
-    
-
-
     //capa de wms traida desde geoserver 
     wmsLayer = L.tileLayer.wms("https://geoaccidentes.duckdns.org/geoserver/ne/wms", {
         layers: 'ne:Accidentes_2018_2024',
@@ -54,12 +51,10 @@ function initMap() {
 
 
     
+    //funcion para mostrar informacion del punto 
+    map.on('click', function (e) {  //donde e es la ubicacion del punto
 
-    map.on('click', function (e) {
-    //const url = getFeatureInfoUrl(map, wmsLayer, e.latlng, 'text/html');
-    const url = getFeatureInfoUrl(map, wmsLayer, e.latlng, 'application/json');
-
-
+    const url = getFeatureInfoUrl(map, wmsLayer, e.latlng, 'application/json');  //'text/html' ultimo parametro define como retorna la informacion
     fetch(url)
         .then(response => response.json()) 
         .then(data => {
@@ -83,13 +78,12 @@ function initMap() {
                     .setContent("No hay información aquí.")
                     .openOn(map);
             }
-
             //console.log(data.features[0].properties);
         })
-
-        
     });
 
+
+    //Funcion que obtiene la informacion para construir la url completa para realizar una consulta WMS GetFeatureInfo,
     function getFeatureInfoUrl(map, layer, latlng, params = {}) {
     const point = map.latLngToContainerPoint(latlng, map.getZoom());
     const size = map.getSize();
@@ -125,7 +119,8 @@ function initMap() {
 async function actualizarGrafica(tipoSelecionado) {
 
     //antes en local:  http://localhost:8080/geoserver/Accidentes/ows?service=WFS&version=1.0.0&request=GetFeature&typeName=Accidentes:Accidentes_2018_2024&outputFormat=application/json
-    const url = `http://geoaccidentes.duckdns.org:8080/geoserver/ne/ows?service=WFS&version=1.0.0&request=GetFeature&typeName=ne%3AAccidentes_2018_2024&maxFeatures=50&outputFormat=application%2Fjson`;
+    const url = `https://geoaccidentes.duckdns.org/geoserver/ne/ows?service=WFS&version=1.0.0&request=GetFeature&typeName=ne%3AAccidentes_2018_2024&maxFeatures=50&outputFormat=application%2Fjson`;
+    
 
     try {
         const response = await fetch(url); //se envia la solicitud o sea la peticion  y la guardo para despues convertira a JSON 
