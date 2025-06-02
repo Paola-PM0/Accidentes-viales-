@@ -119,7 +119,7 @@ function initMap() {
 async function actualizarGrafica(tipoSelecionado) {
 
     //antes en local:  http://localhost:8080/geoserver/Accidentes/ows?service=WFS&version=1.0.0&request=GetFeature&typeName=Accidentes:Accidentes_2018_2024&outputFormat=application/json
-    const url = `https://geoaccidentes.duckdns.org/geoserver/ne/ows?service=WFS&version=1.0.0&request=GetFeature&typeName=ne%3AAccidentes_2018_2024&maxFeatures=50&outputFormat=application%2Fjson`;
+    const url = `https://geoaccidentes.duckdns.org/geoserver/ne/ows?service=WFS&version=1.0.0&request=GetFeature&typeName=ne%3AAccidentes_2018_2024&outputFormat=application%2Fjson`;
     
                 
     try {
