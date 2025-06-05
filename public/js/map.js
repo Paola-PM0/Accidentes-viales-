@@ -128,7 +128,7 @@ async function actualizarGrafica(tipoSelecionado) {
 
         data.forEach(item=> {
             console.log("item",item);
-            const tipo = item.properties.circunstancias || "Desconocido";
+            const tipo = item.circunstancias || "Desconocido";
             cuentaTipos[tipo] = (cuentaTipos[tipo] || 0) + 1;
         });
 
