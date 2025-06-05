@@ -126,9 +126,9 @@ async function actualizarGrafica(tipoSelecionado) {
         console.log("datos:",data);
         const cuentaTipos = {}; //arrego para contar los accidentes por tipo 
 
-        data.features.forEach(feature => {
-            console.log("fecture",feature);
-            const tipo = feature.properties.circunstancias || "Desconocido";
+        data.forEach(item=> {
+            console.log("item",item);
+            const tipo = item.properties.circunstancias || "Desconocido";
             cuentaTipos[tipo] = (cuentaTipos[tipo] || 0) + 1;
         });
 
