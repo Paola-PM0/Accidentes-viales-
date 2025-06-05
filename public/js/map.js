@@ -5,7 +5,6 @@ let chart;
 // Función para cargar datos y crear el mapa  
 function initMap() {
     map = L.map('map').setView([19.7036, -101.1926], 12);  
-
     // Añadir capa de mapa base 
     L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {  
         attribution: '© OpenStreetMap contributors'
@@ -50,10 +49,9 @@ function initMap() {
     });
 
 
-    
+    //POP
     //funcion para mostrar informacion del punto 
     map.on('click', function (e) {  //donde e es la ubicacion del punto
-
     const url = getFeatureInfoUrl(map, wmsLayer, e.latlng, 'application/json');  //'text/html' ultimo parametro define como retorna la informacion
     fetch(url)
         .then(response => response.json()) 
@@ -81,7 +79,6 @@ function initMap() {
             //console.log(data.features[0].properties);
         })
     });
-
 
     //Funcion que obtiene la informacion para construir la url completa para realizar una consulta WMS GetFeatureInfo,
     function getFeatureInfoUrl(map, layer, latlng, params = {}) {
@@ -119,8 +116,8 @@ function initMap() {
 async function actualizarGrafica(tipoSelecionado) {
 
     //antes en local:  http://localhost:8080/geoserver/Accidentes/ows?service=WFS&version=1.0.0&request=GetFeature&typeName=Accidentes:Accidentes_2018_2024&outputFormat=application/json
-    const url = `https://geoaccidentes.duckdns.org/geoserver/ne/ows?service=WFS&version=1.0.0&request=GetFeature&typeName=ne%3AAccidentes_2018_2024&outputFormat=application%2Fjson`;
-    
+    //const url = `https://geoaccidentes.duckdns.org/geoserver/ne/ows?service=WFS&version=1.0.0&request=GetFeature&typeName=ne%3AAccidentes_2018_2024&outputFormat=application%2Fjson`;
+    const url = 'https://api-geoaccidentes.duckdns.org/api/datos';
                 
     try {
         const response = await fetch(url); //se envia la solicitud o sea la peticion  y la guardo para despues convertira a JSON 
@@ -129,9 +126,9 @@ async function actualizarGrafica(tipoSelecionado) {
         console.log("datos:",data);
         const cuentaTipos = {}; //arrego para contar los accidentes por tipo 
 
-        data.features.forEach(feature => {
-            console.log("fecture",feature);
-            const tipo = feature.properties.circunstancias || "Desconocido";
+        data.forEach(item => {
+            console.log("fecture",item);
+            const tipo = item.properties.circunstancias || "Desconocido";
             cuentaTipos[tipo] = (cuentaTipos[tipo] || 0) + 1;
         });
 
@@ -157,45 +154,7 @@ async function actualizarGrafica(tipoSelecionado) {
 }
 
 
-/*
-function renderizarGrafica(labels, data) {
-    const ctx = document.getElementById('hourlyChart').getContext('2d');
 
-    if (chart) chart.destroy(); // Destruye la gráfica anterior si existe
-
-    chart = new Chart(ctx, {
-        type: 'pie',
-        data: {
-            labels: labels,
-            datasets: [{
-                label: 'Accidentes por tipo',
-                data: data,
-                backgroundColor: [
-                    '#FF6384', '#36A2EB', '#FFCE56', '#66BB6A', '#BA68C8', '#FFA726', '#8D6E63'
-                ],
-                borderWidth: 1
-            }]
-        },
-        options: {
-            responsive: true,
-            plugins: {
-                legend: {
-                    position: 'right',
-                },
-                tooltip: {
-                    callbacks: {
-                        label: function(context) {
-                            let total = context.dataset.data.reduce((a, b) => a + b, 0);
-                            let valor = context.parsed;
-                            let porcentaje = ((valor / total) * 100).toFixed(1);
-                            return `${context.label}: ${valor} (${porcentaje}%)`;
-                        }
-                    }
-                }
-            }
-        }
-    });
-}*/
 
 
 function renderizarGrafica(labels, data) {
@@ -291,7 +250,45 @@ function cargarWFS(cqlFilter = "") {
 }*/
 
 
+/*
+function renderizarGrafica(labels, data) {
+    const ctx = document.getElementById('hourlyChart').getContext('2d');
 
+    if (chart) chart.destroy(); // Destruye la gráfica anterior si existe
+
+    chart = new Chart(ctx, {
+        type: 'pie',
+        data: {
+            labels: labels,
+            datasets: [{
+                label: 'Accidentes por tipo',
+                data: data,
+                backgroundColor: [
+                    '#FF6384', '#36A2EB', '#FFCE56', '#66BB6A', '#BA68C8', '#FFA726', '#8D6E63'
+                ],
+                borderWidth: 1
+            }]
+        },
+        options: {
+            responsive: true,
+            plugins: {
+                legend: {
+                    position: 'right',
+                },
+                tooltip: {
+                    callbacks: {
+                        label: function(context) {
+                            let total = context.dataset.data.reduce((a, b) => a + b, 0);
+                            let valor = context.parsed;
+                            let porcentaje = ((valor / total) * 100).toFixed(1);
+                            return `${context.label}: ${valor} (${porcentaje}%)`;
+                        }
+                    }
+                }
+            }
+        }
+    });
+}*/
 
 // Inicializar el mapa al cargar la página
 document.addEventListener('DOMContentLoaded', initMap);
