@@ -111,7 +111,7 @@ function initMap() {
 
 }
 
-
+/*
 //Asinconrna para que el codigo se espere xd
 async function actualizarGrafica(tipoSelecionado) {
 
@@ -126,10 +126,11 @@ async function actualizarGrafica(tipoSelecionado) {
         console.log("datos:",data);
         const cuentaTipos = {}; //arrego para contar los accidentes por tipo 
 
-        data.forEach(item=> {
-            console.log("item",item);
-            const tipo = item.circunstancias || "Desconocido";
-            cuentaTipos[tipo] = (cuentaTipos[tipo] || 0) + 1;
+        data.forEach(item=> { //aceder a cada objeto del arreglo de objetos
+            //console.log("item",item);
+            //const tipo = item.circunstancias || "Desconocido";
+            //entaTipos[tipo] || 0) + 1;
+            cuentaTipos[item.tipo || "Desconocido"] = item.total;
         });
 
         let labels = [];
@@ -152,7 +153,52 @@ async function actualizarGrafica(tipoSelecionado) {
         console.error("Error al obtener datos para la gráfica:", error);
     }
 }
+*/
 
+
+async function actualizarGrafica(tipoSelecionado) {
+    const url = tipoSelecionado === "Todos"
+        ? 'https://api-geoaccidentes.duckdns.org/api/datos'
+        : `https://api-geoaccidentes.duckdns.org/api/datos?tipo=${encodeURIComponent(tipoSelecionado)}`;
+    
+    try {
+        const response = await fetch(url);
+        const data = await response.json();
+
+        let labels = [];
+        let valores = [];
+
+        if (tipoSelecionado === "Todos") {
+            const cuentaTipos = {};
+            data.forEach(item => {
+                cuentaTipos[item.tipo || "Desconocido"] = item.total;
+            });
+
+            labels = Object.keys(cuentaTipos);
+            valores = Object.values(cuentaTipos);
+        } else {
+            const seleccionados = data[0]?.total || 0;
+
+            // Necesitamos saber el total general para restar "Otros"
+            // Lo puedes calcular una sola vez al cargar la página, o
+            // puedes almacenarlo como variable global, pero aquí lo traeremos nuevamente:
+
+            const totalResponse = await fetch('https://api-geoaccidentes.duckdns.org/api/datos');
+            const totalData = await totalResponse.json();
+            const totalGlobal = totalData.reduce((sum, item) => sum + item.total, 0);
+
+            const otros = totalGlobal - seleccionados;
+
+            labels = [tipoSelecionado, "Otros"];
+            valores = [seleccionados, otros];
+        }
+
+        renderizarGrafica(labels, valores);
+
+    } catch (error) {
+        console.error("Error al obtener datos para la gráfica:", error);
+    }
+}
 
 
 
