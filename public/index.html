@@ -6,11 +6,39 @@
     <title>Dashboard de Accidentes Viales</title>
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet.draw/1.0.4/leaflet.draw.css">
-    <link rel="stylesheet" href="/css/styles.css">   
+    <link rel="stylesheet" href="/public/css/styleHome.css">   
 </head>
 
 <body>
-    <h1>Dashboard de Accidentes Viales</h1>
+    <header>
+        <nav class="navbar">
+        <div class="div-logo"><img src="/public/img/Escudo-Morelia-BCO.png" alt="logo"></div>
+        <div class="div-logo"><img src="/public/img/logo-blanco.png" alt="logo"></div>
+        <h1>Dashboard de Accidentes Viales</h1>
+        <button id="toggleDashboardBtn">Ocultar Panel</button>
+        </nav>
+    </header>
+
+    <main>
+        <section id="dashboardPanel" class="dashboard">
+        <div class="card">
+            <h3>Tipos de Accidentes</h3>
+            <canvas id="tipoAccidenteChart" width="300" height="150"></canvas>
+        </div>
+        <div class="card">
+            <h3>Accidentes por Día</h3>
+            <canvas id="accidentesDiaChart" width="300" height="150"></canvas>
+        </div>
+        <div class="card">
+            <h3>Tipos de Accidentes</h3>
+            <canvas id="tipoAccidenteChart" width="300" height="150"></canvas>
+        </div>
+        </section>
+        <div id="map"></div>
+    </main>
+
+
+<!--
     <div class="container">
         <div id="map"></div>
         <div id="sidebar">
@@ -28,17 +56,15 @@
             <canvas id="hourlyChart"></canvas>
         </div>
     </div>
-
+-->
     <!-- Scripts -->
     <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet.draw/1.0.4/leaflet.draw.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    <script src="/js/map.js"></script>
-    <!-- <script src="js/chart1.js"></script>-->
-    <!-- <script src="js/main.js"></script> -->
-    <!--<script src="js/chart.js"></script> -->
-    <script
-    src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.js">
-    </script>
+    <script src="/public/js/map.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.js"></script>
+    <script src="/public/js/style.js"></script>
+
+    
 </body>
 </html>
