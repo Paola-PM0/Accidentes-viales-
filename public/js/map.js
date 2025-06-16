@@ -269,7 +269,7 @@ async function actualizarGraficaBarras(Labels, data){
 }
 //Grafica barras 
 function renderizarGraficaBarras(labels, data){
-    const ctx = document.getElementById('hourlyChart').getContext('2d');
+    const ctx = document.getElementById('hourlyChartbarras').getContext('2d');
 
     if (chart) chart.destroy();
 
