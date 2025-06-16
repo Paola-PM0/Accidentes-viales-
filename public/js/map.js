@@ -1,3 +1,4 @@
+
 let map;
 let wfsLayer;
 let chart;
@@ -165,7 +166,7 @@ async function actualizarGrafica(tipoSelecionado) {
         const response = await fetch(url);
         const data = await response.json();
 
-        let labels = [];
+        let labels = [];  
         let valores = [];
 
         if (tipoSelecionado === "Todos") {
@@ -199,9 +200,6 @@ async function actualizarGrafica(tipoSelecionado) {
         console.error("Error al obtener datos para la gráfica:", error);
     }
 }
-
-
-
 
 function renderizarGrafica(labels, data) {
     const ctx = document.getElementById('hourlyChart').getContext('2d');
@@ -251,92 +249,84 @@ function renderizarGrafica(labels, data) {
 }
 
 
+async function actualizarGraficaBarras(Labels, data){
+    try {
+        const response = await fetch(url);  //peticion http a la api, <- se espera a que termine de hacer la op y se guarda en response
+        const data = await response.json();
 
+        let labels =[];
+        let valores = [];        
 
-/*
-function cargarWFS(cqlFilter = "") {
-    if (wfsLayer) {
-        map.removeLayer(wfsLayer);
-    }
-
-    const url = `http://localhost:8080/geoserver/Accidentes/ows?service=WFS&version=1.0.0&request=GetFeature&typeName=Accidentes:Accidentes_2018_2024&outputFormat=application/json${cqlFilter ? `&CQL_FILTER=${encodeURIComponent(cqlFilter)}` : ''}`;
-
-    fetch(url) 
-        .then(response => {
-            if (!response.ok) {
-                throw new Error("Error en la respuesta del servidor: " + response.status);
-            }
-            return response.json();
-        })
-        .then(data => {
-            console.log("Datos recibidos:", data);
-
-            wfsLayer = L.geoJSON(data, {
-                onEachFeature: function (feature, layer) {
-                    layer.on('click', function () {
-                        const props = feature.properties;
-                        const popupContent = `
-                            <b>Día:</b> ${props.dia}<br>
-                            <b>Hora:</b> ${props.hora}<br>
-                            <b>Tiempo:</b> ${props.tiempo}<br>
-                            <b>Circunstancia:</b> ${props.circunstan}
-                        `;
-                        layer.bindPopup(popupContent).openPopup();
-                    });
-                },
-                
-                pointToLayer: function (feature, latlng) {
-                    return L.circleMarker(latlng, { radius: 6, color: 'red' });
-                }
-            }).addTo(map);
-        })
-        .catch(error => {
-            console.error("Error al cargar WFS:", error);
+        data.forEach(item=>{
+            labels.push(item.tipo || 'desconocido');
+            valores.push(item.total);
         });
-}*/
-
-
-/*
-function renderizarGrafica(labels, data) {
+        
+        renderizarGraficaBarras(labels, valores);
+    } catch (error) {
+        console.error('error',error);
+    }     
+}
+//Grafica barras 
+function renderizarGraficaBarras(labels, data){
     const ctx = document.getElementById('hourlyChart').getContext('2d');
 
-    if (chart) chart.destroy(); // Destruye la gráfica anterior si existe
+    if (chart) chart.destroy();
 
-    chart = new Chart(ctx, {
-        type: 'pie',
-        data: {
+    const total = data.reduce((a,b)=> a + b, 0 );
+    document.getElementById('totalAccidentes').innerText = `Total de accidentes: ${total}`;
+    
+    chart = new Chart (ctx, {
+        type: 'bar',
+
+        data: { 
             labels: labels,
             datasets: [{
-                label: 'Accidentes por tipo',
+                label: 'Accidente por tipo',
                 data: data,
-                backgroundColor: [
-                    '#FF6384', '#36A2EB', '#FFCE56', '#66BB6A', '#BA68C8', '#FFA726', '#8D6E63'
-                ],
+                backgroundColor: ['#FF6384', '#36A2EB', '#FFCE56', '#66BB6A', '#BA68C8', '#FFA726', '#8D6E63'],
+                borderColor: 'rgba(0,0,0,0.1)',
                 borderWidth: 1
             }]
         },
-        options: {
+
+        options: { 
             responsive: true,
-            plugins: {
-                legend: {
-                    position: 'right',
+            scales:{
+                y: {
+                    beginAtZero: true,
+                    //activa la visualizacion eje x o y 
+                    title: {display: true, text: 'Total'},
                 },
-                tooltip: {
-                    callbacks: {
-                        label: function(context) {
-                            let total = context.dataset.data.reduce((a, b) => a + b, 0);
-                            let valor = context.parsed;
-                            let porcentaje = ((valor / total) * 100).toFixed(1);
-                            return `${context.label}: ${valor} (${porcentaje}%)`;
-                        }
-                    }
+                x: {
+                    beginAtZero: true,                   
+                    title : {display: true, text: 'Tipo de Accidentes'},
+                }
+            }
+        },
+        plugins: {
+            legend: {display: false},
+            title:  {display: true, text: 'Tipo de Accidentes'},
+        },
+        //cuadro emergente visualizacion mouse encima
+        tooltip: {
+            callbacks: {
+                label: function(context){
+                    const valor = context.parsed.y;
+                    return `${context.label}: ${valor}`;
                 }
             }
         }
+
     });
-}*/
+}
+
 
 // Inicializar el mapa al cargar la página
 document.addEventListener('DOMContentLoaded', initMap);
 
+document.addEventListener('DOMContentLoaded', () => {
+    initMap();
+    generarGraficaBarrasInicial(); // <-- Aquí se genera la gráfica de barras automáticamente
+});
 
