@@ -251,7 +251,7 @@ function renderizarGrafica(labels, data) {
 
 async function actualizarGraficaBarras(Labels, data){
     try {
-        const response = await fetch(url);  //peticion http a la api, <- se espera a que termine de hacer la op y se guarda en response
+        const response = await fetch('https://api-geoaccidentes.duckdns.org/api/graficoBarras');  //peticion http a la api, <- se espera a que termine de hacer la op y se guarda en response
         const data = await response.json();
 
         let labels =[];
