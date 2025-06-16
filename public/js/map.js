@@ -327,6 +327,6 @@ document.addEventListener('DOMContentLoaded', initMap);
 
 document.addEventListener('DOMContentLoaded', () => {
     initMap();
-    generarGraficaBarrasInicial(); // <-- Aquí se genera la gráfica de barras automáticamente
+    actualizarGraficaBarras(); // <-- Aquí se genera la gráfica de barras automáticamente
 });
 
