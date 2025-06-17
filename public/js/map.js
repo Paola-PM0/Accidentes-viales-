@@ -2,6 +2,7 @@
 let map;
 let wfsLayer;
 let chart;
+let chartBarra;
 
 // Función para cargar datos y crear el mapa  
 function initMap() {
@@ -271,12 +272,12 @@ async function actualizarGraficaBarras(Labels, data){
 function renderizarGraficaBarras(labels, data){
     const ctx = document.getElementById('hourlyChartbarras').getContext('2d');
 
-    if (chart) chart.destroy();
+    if (chartBarra) chartBarra.destroy();
 
     const total = data.reduce((a,b)=> a + b, 0 );
     document.getElementById('totalAccidentes').innerText = `Total de accidentes: ${total}`;
     
-    chart = new Chart (ctx, {
+    chartBarra = new Chart (ctx, {
         type: 'bar',
 
         data: { 
