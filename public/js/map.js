@@ -323,7 +323,6 @@ function renderizarGraficaBarras(labels, data){
 
 
 // Inicializar el mapa al cargar la página
-document.addEventListener('DOMContentLoaded', initMap);
 
 document.addEventListener('DOMContentLoaded', () => {
     initMap();
