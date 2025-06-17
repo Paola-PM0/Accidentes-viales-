@@ -1,3 +1,4 @@
+const { get, validateHeaderName } = require("node:http");
 
 let map;
 let wfsLayer;
@@ -250,7 +251,7 @@ function renderizarGrafica(labels, data) {
 }
 
 
-async function actualizarGraficaBarras(Labels, data){
+async function actualizarGraficaBarras(){
     try {
         const response = await fetch('https://api-geoaccidentes.duckdns.org/api/graficoBarras');  //peticion http a la api, <- se espera a que termine de hacer la op y se guarda en response
         const data = await response.json();
@@ -323,10 +324,46 @@ function renderizarGraficaBarras(labels, data){
 }
 
 
+async function listaCiudades(){
+    try {
+        const response = await fetch();
+        const date = response.json();
+
+        labels = [];
+        valores = [];
+        
+        date.forEach(item => {
+            labels.push(item.ciudad || 'desconocido');
+            valores.push(item.total);
+        });
+        
+        crearLista(labels, valores);
+
+    } catch (error) {
+        console.log("hubo un error", error);
+    }
+}
+
+function crearLista(labels, valores){
+    const lista = documento.getElementById('list');
+    lista.innerHTML = '';
+
+    //recorrer la lista
+
+    for (let i = 0; i < labels.length; index++) {
+        const element = `${labels[i]}: ${valores[i]} accidentes`;
+        lista.appendChild(li);
+        
+    }
+
+}
+
+
 // Inicializar el mapa al cargar la página
 
 document.addEventListener('DOMContentLoaded', () => {
     initMap();
     actualizarGraficaBarras(); // <-- Aquí se genera la gráfica de barras automáticamente
+    listaCiudades();
 });
 
