@@ -326,7 +326,7 @@ function renderizarGraficaBarras(labels, data){
 async function listaCiudades(){
     try {
         const response = await fetch('https://api-geoaccidentes.duckdns.org/api/ciudad');
-        const date = response.json();
+        const date = await response.json();
 
         labels = [];
         valores = [];
