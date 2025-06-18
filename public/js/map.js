@@ -323,7 +323,6 @@ function renderizarGraficaBarras(labels, data){
     });
 }
 
-
 async function listaCiudades(){
     try {
         const response = await fetch();
