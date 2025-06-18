@@ -1,4 +1,4 @@
-const { get, validateHeaderName } = require("node:http");
+//const { get, validateHeaderName } = require("node:http");
 
 let map;
 let wfsLayer;
@@ -325,7 +325,7 @@ function renderizarGraficaBarras(labels, data){
 
 async function listaCiudades(){
     try {
-        const response = await fetch();
+        const response = await fetch('https://api-geoaccidentes.duckdns.org/api/ciudad');
         const date = response.json();
 
         labels = [];
@@ -344,14 +344,15 @@ async function listaCiudades(){
 }
 
 function crearLista(labels, valores){
-    const lista = documento.getElementById('list');
+    const lista = document.getElementById('list');
     lista.innerHTML = '';
 
     //recorrer la lista
 
     for (let i = 0; i < labels.length; index++) {
-        const element = `${labels[i]}: ${valores[i]} accidentes`;
-        lista.appendChild(li);
+        const crearli = document.createElement('li');
+        crearli.textContent = `${labels[i]}: ${valores[i]} accidentes`;
+        lista.appendChild(crearli);
         
     }
 
