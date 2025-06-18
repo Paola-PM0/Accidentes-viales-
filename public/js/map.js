@@ -349,7 +349,7 @@ function crearLista(labels, valores){
 
     //recorrer la lista
 
-    for (let i = 0; i < labels.length; index++) {
+    for (let i = 0; i < labels.length; i++) {
         const crearli = document.createElement('li');
         crearli.textContent = `${labels[i]}: ${valores[i]} accidentes`;
         lista.appendChild(crearli);
