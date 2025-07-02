@@ -1,9 +1,10 @@
-/*SERVIDOR CON EXPRESS
+/*SERVIDOR CON EXPRESS 
+//ejemplo de proxy para probar desde el navegador
 
 
 “Todo lo que esté en esta carpeta lo puedes servir tal cual al navegador”.
 */
-
+/*
 //importacion de modulos de express, path y middleware
 const express = require("express");
 //forma automatico de obtener la ruta raiz del proyecto
@@ -42,4 +43,4 @@ app.listen(3000, () => {
     console.log("Servidor corriendo en http://localhost:3000");
 })
 
-
+*/
