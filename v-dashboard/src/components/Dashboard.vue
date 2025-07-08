@@ -249,6 +249,10 @@ export default {
         initMap();
         actualizarGraficaBarras();
         listaCiudades();
+        
+        setTimeout(() => {
+        map.invalidateSize();
+    }, 500);
     });
 
     return { mostrarPanel, togglePanel, filtrarAccidentes };
