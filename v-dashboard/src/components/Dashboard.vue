@@ -245,7 +245,22 @@ export default {
     };
 
     //Una vez montado el componente en el DOM, inicia la logica del componente
-    /*onMounted(() => {
+    /*
+    
+     onMounted(()=>{
+        setTimeout(()=> {
+            initMap();
+            map.inivalideSize();
+            actualizarGraficaBarras();
+            listaCiudades();
+        }, 300);
+    });
+    
+    
+    */
+
+
+    onMounted(() => {
         initMap();
         actualizarGraficaBarras();
         listaCiudades();
@@ -253,16 +268,6 @@ export default {
         setTimeout(() => {
         map.invalidateSize();
     }, 500);
-    });*/
-
-
-    onMounted(()=>{
-        setTimeout(()=> {
-            initMap();
-            map.inivalideSize();
-            actualizarGraficaBarras();
-            listaCiudades();
-        }, 300);
     });
 
 
