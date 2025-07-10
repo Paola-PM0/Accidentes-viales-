@@ -35,5 +35,5 @@ import HelloWorld from './components/HelloWorld.vue'
 </template>
 
 <script setup>
-import Dashboard from './components/dashboard.vue'
+import Dashboard from './components/Dashboard.vue'
 </script>
