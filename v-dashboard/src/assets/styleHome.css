@@ -77,7 +77,9 @@
     }
 
     #map {
-    height: 400px;
+    height: 400px !important; /* Forzar altura */
+    width: 100% !important;
+    position: relative;
     background: #ccc;
     border-radius: 10px;
     text-align: center;
