@@ -82,10 +82,12 @@ const initMap = () => {
 </script>
 
 <style scoped>
-#map {
-    height: 400px !important;
-    width: 100% !important;
-    border: 2px solid red;
-    border-radius: 10px;
-}
+    #map {
+        width: 100%;
+        height: 100%;
+        min-height: 400px;
+        position: absolute;
+        top: 0;
+        left: 0;
+    }
 </style>

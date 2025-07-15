@@ -38,8 +38,9 @@
             <ol id="list"></ol>
         </div>
         </section>
-
-        <MapaLeaflet @mapReady="handleMapReady" />
+        <div class="map-container">
+            <MapaLeaflet @mapReady="handleMapReady" />
+        </div>
     </main>
     </template>
 
