@@ -83,6 +83,8 @@
         attribution: 'GeoServer WMS',
     }).addTo(map);
 
+    map.invalidateSize(); 
+
     currentWmsLayer = newWms;
     await actualizarGrafica(tipo);
     };

@@ -132,6 +132,7 @@ canvas {
 
 .map-container {
     height: 400px;
+    min-height: 400px;
     width: 100%;
     position: relative;
     z-index: 1;
